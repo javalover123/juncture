@@ -21,6 +21,7 @@ import java.nio.BufferOverflowException;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Common definitions.
@@ -234,6 +235,61 @@ public class ITCH50 {
          */
         void put(ByteBuffer buffer);
 
+        /**
+         * Read 4 byte double
+         *
+         * @param buffer a buffer
+         * @return double
+         */
+        default double readDouble4(ByteBuffer buffer) {
+            return buffer.getInt() / 10000.0;
+        }
+
+        /**
+         * Read 8 byte price
+         *
+         * @param buffer a buffer
+         * @return price
+         */
+        default double readPrice8(ByteBuffer buffer) {
+            return buffer.getLong() / 10000.0 / 1000;
+        }
+
+        /**
+         * Read string
+         *
+         * @param buffer a buffer
+         * @param length length
+         * @return String
+         */
+        default String readString(ByteBuffer buffer, int length) {
+            byte[] bytes = new byte[length];
+            buffer.get(bytes);
+            return new String(bytes, StandardCharsets.UTF_8).trim();
+        }
+
+        /**
+         * Write double
+         *
+         * @param buffer a buffer
+         * @param value  double value
+         * @return Byte array
+         */
+        default void put(ByteBuffer buffer, double value) {
+            buffer.putInt((int) (value * 10000));
+        }
+
+        /**
+         * Write double
+         *
+         * @param buffer a buffer
+         * @param value  double value
+         * @return Byte array
+         */
+        default void putPrice8(ByteBuffer buffer, double value) {
+            buffer.putLong((int) (value * 10000 * 1000));
+        }
+
     }
 
     /**
@@ -244,7 +300,7 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public byte eventCode;
+        public char eventCode;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -252,7 +308,7 @@ public class ITCH50 {
             trackingNumber = getUnsignedShort(buffer);
             timestampHigh  = getUnsignedShort(buffer);
             timestampLow   = getUnsignedInt(buffer);
-            eventCode      = buffer.get();
+            eventCode      = (char) buffer.get();
         }
 
         @Override
@@ -262,7 +318,7 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(eventCode);
+            buffer.put((byte) eventCode);
         }
     }
 
@@ -274,20 +330,20 @@ public class ITCH50 {
         public int   trackingNumber;
         public int   timestampHigh;
         public long  timestampLow;
-        public long  stock;
-        public byte  marketCategory;
-        public byte  financialStatusIndicator;
+        public String  stock;
+        public char  marketCategory;
+        public char  financialStatusIndicator;
         public long  roundLotSize;
-        public byte  roundLotsOnly;
-        public byte  issueClassification;
-        public short issueSubType;
-        public byte  authenticity;
-        public byte  shortSaleThresholdIndicator;
-        public byte  ipoFlag;
-        public byte  luldReferencePriceTier;
-        public byte  etpFlag;
+        public char  roundLotsOnly;
+        public char  issueClassification;
+        public String issueSubType;
+        public char  authenticity;
+        public char  shortSaleThresholdIndicator;
+        public char  ipoFlag;
+        public char  luldReferencePriceTier;
+        public char  etpFlag;
         public long  etpLeverageFactor;
-        public byte  inverseIndicator;
+        public char  inverseIndicator;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -295,20 +351,20 @@ public class ITCH50 {
             trackingNumber              = getUnsignedShort(buffer);
             timestampHigh               = getUnsignedShort(buffer);
             timestampLow                = getUnsignedInt(buffer);
-            stock                       = buffer.getLong();
-            marketCategory              = buffer.get();
-            financialStatusIndicator    = buffer.get();
+            stock                       = readString(buffer, 8);
+            marketCategory              = (char) buffer.get();
+            financialStatusIndicator    = (char) buffer.get();
             roundLotSize                = getUnsignedInt(buffer);
-            roundLotsOnly               = buffer.get();
-            issueClassification         = buffer.get();
-            issueSubType                = buffer.getShort();
-            authenticity                = buffer.get();
-            shortSaleThresholdIndicator = buffer.get();
-            ipoFlag                     = buffer.get();
-            luldReferencePriceTier      = buffer.get();
-            etpFlag                     = buffer.get();
+            roundLotsOnly               = (char) buffer.get();
+            issueClassification         = (char) buffer.get();
+            issueSubType                = readString(buffer, 2);
+            authenticity                = (char) buffer.get();
+            shortSaleThresholdIndicator = (char) buffer.get();
+            ipoFlag                     = (char) buffer.get();
+            luldReferencePriceTier      = (char) buffer.get();
+            etpFlag                     = (char) buffer.get();
             etpLeverageFactor           = getUnsignedInt(buffer);
-            inverseIndicator            = buffer.get();
+            inverseIndicator            = (char) buffer.get();
         }
 
         @Override
@@ -318,20 +374,20 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(stock);
-            buffer.put(marketCategory);
-            buffer.put(financialStatusIndicator);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) marketCategory);
+            buffer.put((byte) financialStatusIndicator);
             putUnsignedInt(buffer, roundLotSize);
-            buffer.put(roundLotsOnly);
-            buffer.put(issueClassification);
-            buffer.putShort(issueSubType);
-            buffer.put(authenticity);
-            buffer.put(shortSaleThresholdIndicator);
-            buffer.put(ipoFlag);
-            buffer.put(luldReferencePriceTier);
-            buffer.put(etpFlag);
+            buffer.put((byte) roundLotsOnly);
+            buffer.put((byte) issueClassification);
+            buffer.put(issueSubType.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) authenticity);
+            buffer.put((byte) shortSaleThresholdIndicator);
+            buffer.put((byte) ipoFlag);
+            buffer.put((byte) luldReferencePriceTier);
+            buffer.put((byte) etpFlag);
             putUnsignedInt(buffer, etpLeverageFactor);
-            buffer.put(inverseIndicator);
+            buffer.put((byte) inverseIndicator);
         }
     }
 
@@ -343,10 +399,10 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public long stock;
-        public byte tradingState;
+        public String stock;
+        public char tradingState;
         public byte reserved;
-        public int  reason;
+        public String  reason;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -354,10 +410,10 @@ public class ITCH50 {
             trackingNumber = getUnsignedShort(buffer);
             timestampHigh  = getUnsignedShort(buffer);
             timestampLow   = getUnsignedInt(buffer);
-            stock          = buffer.getLong();
-            tradingState   = buffer.get();
+            stock          = readString(buffer, 8);
+            tradingState   = (char) buffer.get();
             reserved       = buffer.get();
-            reason         = buffer.getInt();
+            reason         = readString(buffer, 4);
         }
 
         @Override
@@ -367,10 +423,10 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(stock);
-            buffer.put(tradingState);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) tradingState);
             buffer.put(reserved);
-            buffer.putInt(reason);
+            buffer.put(reason.getBytes(StandardCharsets.UTF_8));
         }
     }
 
@@ -382,8 +438,8 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public long stock;
-        public byte regSHOAction;
+        public String stock;
+        public char regSHOAction;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -391,8 +447,8 @@ public class ITCH50 {
             trackingNumber = getUnsignedShort(buffer);
             timestampHigh  = getUnsignedShort(buffer);
             timestampLow   = getUnsignedInt(buffer);
-            stock          = buffer.getLong();
-            regSHOAction   = buffer.get();
+            stock          = readString(buffer, 8);
+            regSHOAction   = (char) buffer.get();
         }
 
         @Override
@@ -402,8 +458,8 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(stock);
-            buffer.put(regSHOAction);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) regSHOAction);
         }
     }
 
@@ -415,11 +471,11 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public int  mpid;
-        public long stock;
-        public byte primaryMarketMaker;
-        public byte marketMakerMode;
-        public byte marketParticipantState;
+        public String  mpid;
+        public String stock;
+        public char primaryMarketMaker;
+        public char marketMakerMode;
+        public char marketParticipantState;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -427,11 +483,11 @@ public class ITCH50 {
             trackingNumber         = getUnsignedShort(buffer);
             timestampHigh          = getUnsignedShort(buffer);
             timestampLow           = getUnsignedInt(buffer);
-            mpid                   = buffer.getInt();
-            stock                  = buffer.getLong();
-            primaryMarketMaker     = buffer.get();
-            marketMakerMode        = buffer.get();
-            marketParticipantState = buffer.get();
+            mpid                   = readString(buffer, 4);
+            stock                  = readString(buffer, 8);
+            primaryMarketMaker     = (char) buffer.get();
+            marketMakerMode        = (char) buffer.get();
+            marketParticipantState = (char) buffer.get();
         }
 
         @Override
@@ -441,11 +497,11 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putInt(mpid);
-            buffer.putLong(stock);
-            buffer.put(primaryMarketMaker);
-            buffer.put(marketMakerMode);
-            buffer.put(marketParticipantState);
+            buffer.put(mpid.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) primaryMarketMaker);
+            buffer.put((byte) marketMakerMode);
+            buffer.put((byte) marketParticipantState);
         }
     }
 
@@ -457,9 +513,9 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public long level1;
-        public long level2;
-        public long level3;
+        public double level1;
+        public double level2;
+        public double level3;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -467,9 +523,9 @@ public class ITCH50 {
             trackingNumber = getUnsignedShort(buffer);
             timestampHigh  = getUnsignedShort(buffer);
             timestampLow   = getUnsignedInt(buffer);
-            level1         = buffer.getLong();
-            level2         = buffer.getLong();
-            level3         = buffer.getLong();
+            level1         = readPrice8(buffer);
+            level2         = readPrice8(buffer);
+            level3         = readPrice8(buffer);
         }
 
         @Override
@@ -479,9 +535,9 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(level1);
-            buffer.putLong(level2);
-            buffer.putLong(level3);
+            putPrice8(buffer, level1);
+            putPrice8(buffer, level2);
+            putPrice8(buffer, level3);
         }
     }
 
@@ -493,7 +549,7 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public byte breachedLevel;
+        public char breachedLevel;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -501,7 +557,7 @@ public class ITCH50 {
             trackingNumber = getUnsignedShort(buffer);
             timestampHigh  = getUnsignedShort(buffer);
             timestampLow   = getUnsignedInt(buffer);
-            breachedLevel  = buffer.get();
+            breachedLevel  = (char) buffer.get();
         }
 
         @Override
@@ -511,7 +567,7 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(breachedLevel);
+            buffer.put((byte) breachedLevel);
         }
     }
 
@@ -523,10 +579,10 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public long stock;
+        public String stock;
         public long ipoQuotationReleaseTime;
-        public byte ipoQuotationReleaseQualifier;
-        public long ipoPrice;
+        public char ipoQuotationReleaseQualifier;
+        public double ipoPrice;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -534,10 +590,10 @@ public class ITCH50 {
             trackingNumber               = getUnsignedShort(buffer);
             timestampHigh                = getUnsignedShort(buffer);
             timestampLow                 = getUnsignedInt(buffer);
-            stock                        = buffer.getLong();
+            stock                        = readString(buffer, 8);
             ipoQuotationReleaseTime      = getUnsignedInt(buffer);
-            ipoQuotationReleaseQualifier = buffer.get();
-            ipoPrice                     = getUnsignedInt(buffer);
+            ipoQuotationReleaseQualifier = (char) buffer.get();
+            ipoPrice                     = readDouble4(buffer);
         }
 
         @Override
@@ -547,10 +603,10 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(stock);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
             putUnsignedInt(buffer, ipoQuotationReleaseTime);
-            buffer.put(ipoQuotationReleaseQualifier);
-            putUnsignedInt(buffer, ipoPrice);
+            buffer.put((byte) ipoQuotationReleaseQualifier);
+            put(buffer, ipoPrice);
         }
     }
 
@@ -562,10 +618,10 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public long stock;
-        public long auctionCollarReferencePrice;
-        public long upperAuctionCollarPrice;
-        public long lowerAuctionCollarPrice;
+        public String stock;
+        public double auctionCollarReferencePrice;
+        public double upperAuctionCollarPrice;
+        public double lowerAuctionCollarPrice;
         public long auctionCollarExtension;
 
         @Override
@@ -574,10 +630,10 @@ public class ITCH50 {
             trackingNumber              = getUnsignedShort(buffer);
             timestampHigh               = getUnsignedShort(buffer);
             timestampLow                = getUnsignedInt(buffer);
-            stock                       = buffer.getLong();
-            auctionCollarReferencePrice = getUnsignedInt(buffer);
-            upperAuctionCollarPrice     = getUnsignedInt(buffer);
-            lowerAuctionCollarPrice     = getUnsignedInt(buffer);
+            stock                       = readString(buffer, 8);
+            auctionCollarReferencePrice = readDouble4(buffer);
+            upperAuctionCollarPrice     = readDouble4(buffer);
+            lowerAuctionCollarPrice     = readDouble4(buffer);
             auctionCollarExtension      = getUnsignedInt(buffer);
         }
 
@@ -588,10 +644,10 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(stock);
-            putUnsignedInt(buffer, auctionCollarReferencePrice);
-            putUnsignedInt(buffer, upperAuctionCollarPrice);
-            putUnsignedInt(buffer, lowerAuctionCollarPrice);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            put(buffer, auctionCollarReferencePrice);
+            put(buffer, upperAuctionCollarPrice);
+            put(buffer, lowerAuctionCollarPrice);
             putUnsignedInt(buffer, auctionCollarExtension);
         }
     }
@@ -604,9 +660,9 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public long stock;
-        public byte marketCode;
-        public byte operationalHaltAction;
+        public String stock;
+        public char marketCode;
+        public char operationalHaltAction;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -614,9 +670,9 @@ public class ITCH50 {
             trackingNumber        = getUnsignedShort(buffer);
             timestampHigh         = getUnsignedShort(buffer);
             timestampLow          = getUnsignedInt(buffer);
-            stock                 = buffer.getLong();
-            marketCode            = buffer.get();
-            operationalHaltAction = buffer.get();
+            stock                 = readString(buffer, 8);
+            marketCode            = (char) buffer.get();
+            operationalHaltAction = (char) buffer.get();
         }
 
         @Override
@@ -626,9 +682,9 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(stock);
-            buffer.put(marketCode);
-            buffer.put(operationalHaltAction);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) marketCode);
+            buffer.put((byte) operationalHaltAction);
         }
     }
 
@@ -641,10 +697,10 @@ public class ITCH50 {
         public int  timestampHigh;
         public long timestampLow;
         public long orderReferenceNumber;
-        public byte buySellIndicator;
+        public char buySellIndicator;
         public long shares;
-        public long stock;
-        public long price;
+        public String stock;
+        public double price;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -653,10 +709,10 @@ public class ITCH50 {
             timestampHigh        = getUnsignedShort(buffer);
             timestampLow         = getUnsignedInt(buffer);
             orderReferenceNumber = buffer.getLong();
-            buySellIndicator     = buffer.get();
+            buySellIndicator     = (char) buffer.get();
             shares               = getUnsignedInt(buffer);
-            stock                = buffer.getLong();
-            price                = getUnsignedInt(buffer);
+            stock                = readString(buffer, 8);
+            price                = readDouble4(buffer);
         }
 
         @Override
@@ -667,10 +723,10 @@ public class ITCH50 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.putLong(orderReferenceNumber);
-            buffer.put(buySellIndicator);
+            buffer.put((byte) buySellIndicator);
             putUnsignedInt(buffer, shares);
-            buffer.putLong(stock);
-            putUnsignedInt(buffer, price);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            put(buffer, price);
         }
     }
 
@@ -683,11 +739,11 @@ public class ITCH50 {
         public int  timestampHigh;
         public long timestampLow;
         public long orderReferenceNumber;
-        public byte buySellIndicator;
+        public char buySellIndicator;
         public long shares;
-        public long stock;
-        public long price;
-        public int  attribution;
+        public String stock;
+        public double price;
+        public String attribution;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -696,11 +752,11 @@ public class ITCH50 {
             timestampHigh        = getUnsignedShort(buffer);
             timestampLow         = getUnsignedInt(buffer);
             orderReferenceNumber = buffer.getLong();
-            buySellIndicator     = buffer.get();
+            buySellIndicator     = (char) buffer.get();
             shares               = getUnsignedInt(buffer);
-            stock                = buffer.getLong();
-            price                = getUnsignedInt(buffer);
-            attribution          = buffer.getInt();
+            stock                = readString(buffer, 8);
+            price                = readDouble4(buffer);
+            attribution          = readString(buffer, 4);
         }
 
         @Override
@@ -711,11 +767,11 @@ public class ITCH50 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.putLong(orderReferenceNumber);
-            buffer.put(buySellIndicator);
+            buffer.put((byte) buySellIndicator);
             putUnsignedInt(buffer, shares);
-            buffer.putLong(stock);
-            putUnsignedInt(buffer, price);
-            buffer.putInt(attribution);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            put(buffer, price);
+            buffer.put(attribution.getBytes(StandardCharsets.UTF_8));
         }
     }
 
@@ -766,8 +822,8 @@ public class ITCH50 {
         public long orderReferenceNumber;
         public long executedShares;
         public long matchNumber;
-        public byte printable;
-        public long executionPrice;
+        public char printable;
+        public double executionPrice;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -778,8 +834,8 @@ public class ITCH50 {
             orderReferenceNumber = buffer.getLong();
             executedShares       = getUnsignedInt(buffer);
             matchNumber          = buffer.getLong();
-            printable            = buffer.get();
-            executionPrice       = getUnsignedInt(buffer);
+            printable            = (char) buffer.get();
+            executionPrice       = readDouble4(buffer);
         }
 
         @Override
@@ -792,8 +848,8 @@ public class ITCH50 {
             buffer.putLong(orderReferenceNumber);
             putUnsignedInt(buffer, executedShares);
             buffer.putLong(matchNumber);
-            buffer.put(printable);
-            putUnsignedInt(buffer, executionPrice);
+            buffer.put((byte) printable);
+            put(buffer, executionPrice);
         }
     }
 
@@ -871,7 +927,7 @@ public class ITCH50 {
         public long originalOrderReferenceNumber;
         public long newOrderReferenceNumber;
         public long shares;
-        public long price;
+        public double price;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -882,7 +938,7 @@ public class ITCH50 {
             originalOrderReferenceNumber = buffer.getLong();
             newOrderReferenceNumber      = buffer.getLong();
             shares                       = getUnsignedInt(buffer);
-            price                        = getUnsignedInt(buffer);
+            price                        = readDouble4(buffer);
         }
 
         @Override
@@ -895,7 +951,7 @@ public class ITCH50 {
             buffer.putLong(originalOrderReferenceNumber);
             buffer.putLong(newOrderReferenceNumber);
             putUnsignedInt(buffer, shares);
-            putUnsignedInt(buffer, price);
+            put(buffer, price);
         }
     }
 
@@ -908,10 +964,10 @@ public class ITCH50 {
         public int  timestampHigh;
         public long timestampLow;
         public long orderReferenceNumber;
-        public byte buySellIndicator;
+        public char buySellIndicator;
         public long shares;
-        public long stock;
-        public long price;
+        public String stock;
+        public double price;
         public long matchNumber;
 
         @Override
@@ -921,10 +977,10 @@ public class ITCH50 {
             timestampHigh        = getUnsignedShort(buffer);
             timestampLow         = getUnsignedInt(buffer);
             orderReferenceNumber = buffer.getLong();
-            buySellIndicator     = buffer.get();
+            buySellIndicator     = (char) buffer.get();
             shares               = getUnsignedInt(buffer);
-            stock                = buffer.getLong();
-            price                = getUnsignedInt(buffer);
+            stock                = readString(buffer, 8);
+            price                = readDouble4(buffer);
             matchNumber          = buffer.getLong();
         }
 
@@ -936,10 +992,10 @@ public class ITCH50 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.putLong(orderReferenceNumber);
-            buffer.put(buySellIndicator);
+            buffer.put((byte) buySellIndicator);
             putUnsignedInt(buffer, shares);
-            buffer.putLong(stock);
-            putUnsignedInt(buffer, price);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            put(buffer, price);
             buffer.putLong(matchNumber);
         }
     }
@@ -953,10 +1009,10 @@ public class ITCH50 {
         public int  timestampHigh;
         public long timestampLow;
         public long shares;
-        public long stock;
-        public long crossPrice;
+        public String stock;
+        public double crossPrice;
         public long matchNumber;
-        public byte crossType;
+        public char crossType;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -965,10 +1021,10 @@ public class ITCH50 {
             timestampHigh  = getUnsignedShort(buffer);
             timestampLow   = getUnsignedInt(buffer);
             shares         = getUnsignedInt(buffer);
-            stock          = buffer.getLong();
-            crossPrice     = getUnsignedInt(buffer);
+            stock          = readString(buffer, 8);
+            crossPrice     = readDouble4(buffer);
             matchNumber    = buffer.getLong();
-            crossType      = buffer.get();
+            crossType      = (char) buffer.get();
         }
 
         @Override
@@ -979,10 +1035,10 @@ public class ITCH50 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             putUnsignedInt(buffer, shares);
-            buffer.putLong(stock);
-            putUnsignedInt(buffer, crossPrice);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            put(buffer, crossPrice);
             buffer.putLong(matchNumber);
-            buffer.put(crossType);
+            buffer.put((byte) crossType);
         }
     }
 
@@ -1026,13 +1082,13 @@ public class ITCH50 {
         public long timestampLow;
         public long pairedShares;
         public long imbalanceShares;
-        public byte imbalanceDirection;
-        public long stock;
-        public long farPrice;
-        public long nearPrice;
-        public long currentReferencePrice;
-        public byte crossType;
-        public byte priceVariationIndicator;
+        public char imbalanceDirection;
+        public String stock;
+        public double farPrice;
+        public double nearPrice;
+        public double currentReferencePrice;
+        public char crossType;
+        public char priceVariationIndicator;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -1042,13 +1098,13 @@ public class ITCH50 {
             timestampLow            = getUnsignedInt(buffer);
             pairedShares            = buffer.getLong();
             imbalanceShares         = buffer.getLong();
-            imbalanceDirection      = buffer.get();
-            stock                   = buffer.getLong();
-            farPrice                = getUnsignedInt(buffer);
-            nearPrice               = getUnsignedInt(buffer);
-            currentReferencePrice   = getUnsignedInt(buffer);
-            crossType               = buffer.get();
-            priceVariationIndicator = buffer.get();
+            imbalanceDirection      = (char) buffer.get();
+            stock                   = readString(buffer, 8);
+            farPrice                = readDouble4(buffer);
+            nearPrice               = readDouble4(buffer);
+            currentReferencePrice   = readDouble4(buffer);
+            crossType               = (char) buffer.get();
+            priceVariationIndicator = (char) buffer.get();
         }
 
         @Override
@@ -1060,13 +1116,13 @@ public class ITCH50 {
             putUnsignedInt(buffer, timestampLow);
             buffer.putLong(pairedShares);
             buffer.putLong(imbalanceShares);
-            buffer.put(imbalanceDirection);
-            buffer.putLong(stock);
-            putUnsignedInt(buffer, farPrice);
-            putUnsignedInt(buffer, nearPrice);
-            putUnsignedInt(buffer, currentReferencePrice);
-            buffer.put(crossType);
-            buffer.put(priceVariationIndicator);
+            buffer.put((byte) imbalanceDirection);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            put(buffer, farPrice);
+            put(buffer, nearPrice);
+            put(buffer, currentReferencePrice);
+            buffer.put((byte) crossType);
+            buffer.put((byte) priceVariationIndicator);
         }
     }
 
@@ -1078,8 +1134,8 @@ public class ITCH50 {
         public int  trackingNumber;
         public int  timestampHigh;
         public long timestampLow;
-        public long stock;
-        public byte interestFlag;
+        public String stock;
+        public char interestFlag;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -1087,8 +1143,8 @@ public class ITCH50 {
             trackingNumber = getUnsignedShort(buffer);
             timestampHigh  = getUnsignedShort(buffer);
             timestampLow   = getUnsignedInt(buffer);
-            stock          = buffer.getLong();
-            interestFlag   = buffer.get();
+            stock          = readString(buffer, 8);
+            interestFlag   = (char) buffer.get();
         }
 
         @Override
@@ -1098,8 +1154,8 @@ public class ITCH50 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.putLong(stock);
-            buffer.put(interestFlag);
+            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) interestFlag);
         }
     }
 
