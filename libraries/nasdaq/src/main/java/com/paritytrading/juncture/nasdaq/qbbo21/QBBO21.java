@@ -46,12 +46,12 @@ public class QBBO21 {
     public static final byte MESSAGE_TYPE_MWCB_STATUS                 = 'W';
     public static final byte MESSAGE_TYPE_IPO_QUOTING_PERIOD_UPDATE   = 'K';
     public static final byte MESSAGE_TYPE_OPERATIONAL_HALT            = 'h';
-    public static final byte MESSAGE_TYPE_ADD_ORDER                   = 'A';
-    public static final byte MESSAGE_TYPE_CROSS_TRADE                 = 'Q';
+    public static final byte MESSAGE_TYPE_NEXT_SHARES_QUOTATION       = 'A';
+    public static final byte MESSAGE_TYPE_QUOTATION                   = 'Q';
     public static final byte MESSAGE_TYPE_RPII                        = 'N';
 
     /*
-     * Event Code (4.1) values.
+     * Event Code (5.1) values.
      */
     public static final byte EVENT_CODE_START_OF_MESSAGES     = 'O';
     public static final byte EVENT_CODE_START_OF_SYSTEM_HOURS = 'S';
@@ -61,7 +61,7 @@ public class QBBO21 {
     public static final byte EVENT_CODE_END_OF_MESSAGES       = 'C';
 
     /*
-     * Financial Status Indicator (4.2.1) values.
+     * Financial Status Indicator (5.2.1) values.
      */
     public static final byte FINANCIAL_STATUS_INDICATOR_DEFICIENT                       = 'D';
     public static final byte FINANCIAL_STATUS_INDICATOR_DELINQUENT                      = 'E';
@@ -76,19 +76,19 @@ public class QBBO21 {
     public static final byte FINANCIAL_STATUS_INDICATOR_NOT_AVAILABLE                   = ' ';
 
     /*
-     * Authenticity (4.2.1) values.
+     * Authenticity (5.2.1) values.
      */
     public static final byte AUTHENTICITY_PRODUCTION = 'P';
     public static final byte AUTHENTICTY_TEST        = 'T';
 
     /*
-     * LULD Reference Price Tier (4.2.1) values.
+     * LULD Reference Price Tier (5.2.1) values.
      */
     public static final byte LULD_REFERENCE_PRICE_TIER_1 = '1';
     public static final byte LULD_REFERENCE_PRICE_TIER_2 = '2';
 
     /*
-     * Trading State (4.2.2) values.
+     * Trading State (5.2.2) values.
      */
     public static final byte TRADING_STATE_HALTED           = 'H';
     public static final byte TRADING_STATE_PAUSED           = 'P';
@@ -96,40 +96,40 @@ public class QBBO21 {
     public static final byte TRADING_STATE_TRADING          = 'T';
 
     /*
-     * Reg SHO Action (4.2.3) values.
+     * Reg SHO Action (5.2.3) values.
      */
     public static final byte REG_SHO_ACTION_NO_PRICE_TEST                              = '0';
     public static final byte REG_SHO_ACTION_SHORT_SALE_PRICE_TEST_INTRA_DAY_PRICE_DROP = '1';
     public static final byte REG_SHO_ACTION_SHORT_SALE_PRICE_TEST                      = '2';
 
     /*
-     * Breached Level (4.2.5.2) values.
+     * Breached Level (5.2.4.2) values.
      */
     public static final byte BREACHED_LEVEL_1 = '1';
     public static final byte BREACHED_LEVEL_2 = '2';
     public static final byte BREACHED_LEVEL_3 = '3';
 
     /*
-     * IPO Quotation Release Qualifier (4.2.6) values.
+     * IPO Quotation Release Qualifier (5.6) values.
      */
     public static final byte IPO_QUOTATION_RELEASE_QUALIFIER_ANTICIPATED_QUOTATION_TIME     = 'A';
     public static final byte IPO_QUOTATION_RELEASE_QUALIFIER_IPO_RELEASE_CANCELED_POSTPONED = 'C';
 
     /*
-     * Market Code (4.2.8) values.
+     * Market Code (5.2.5) values.
      */
     public static final byte MARKET_CODE_NASDAQ = 'Q';
     public static final byte MARKET_CODE_BX     = 'B';
     public static final byte MARKET_CODE_PSX    = 'X';
 
     /*
-     * Operational Halt Action (4.2.8) values.
+     * Operational Halt Action (5.2.5) values.
      */
     public static final byte OPERATIONAL_HALT_ACTION_OPERATIONALLY_HALTED = 'H';
     public static final byte OPERATIONAL_HALT_ACTION_TRADING_RESUMED      = 'T';
 
     /*
-     * Interest Flag (4.7) values.
+     * Interest Flag (5.5) values.
      */
     public static final byte INTEREST_FLAG_BUY  = 'B';
     public static final byte INTEREST_FLAG_SELL = 'S';
@@ -218,7 +218,7 @@ public class QBBO21 {
     }
 
     /**
-     * A System Event message.
+     * A System Event (5.1) message.
      */
     public static class SystemEvent implements Message {
         public int  trackingNumber;
@@ -245,7 +245,7 @@ public class QBBO21 {
     }
 
     /**
-     * A Stock Directory (4.2.1) message.
+     * A Stock Directory (5.2.1) message.
      */
     public static class StockDirectory implements Message {
         public int   trackingNumber;
@@ -311,7 +311,7 @@ public class QBBO21 {
     }
 
     /**
-     * A Stock Trading Action (4.2.2) message.
+     * A Stock Trading Action (5.2.2) message.
      */
     public static class StockTradingAction implements Message {
         public int  trackingNumber;
@@ -347,7 +347,7 @@ public class QBBO21 {
     }
 
     /**
-     * A Reg SHO Restriction (4.2.3) message.
+     * A Reg SHO Restriction (5.2.3) message.
      */
     public static class RegSHORestriction implements Message {
         public int  trackingNumber;
@@ -377,7 +377,7 @@ public class QBBO21 {
     }
 
     /**
-     * An MWCB Decline Level (4.2.5.1) message.
+     * An MWCB Decline Level (5.2.4.1) message.
      */
     public static class MWCBDeclineLevel implements Message {
         public int  trackingNumber;
@@ -410,7 +410,7 @@ public class QBBO21 {
     }
 
     /**
-     * An MWCB Status (4.2.5.2) message.
+     * An MWCB Status (5.2.4.2) message.
      */
     public static class MWCBStatus implements Message {
         public int  trackingNumber;
@@ -437,7 +437,7 @@ public class QBBO21 {
     }
 
     /**
-     * An IPO Quoting Period Update (4.2.6) message.
+     * An IPO Quoting Period Update (5.6) message.
      */
     public static class IPOQuotingPeriodUpdate implements Message {
         public int  trackingNumber;
@@ -473,7 +473,7 @@ public class QBBO21 {
     }
 
     /**
-     * An Operational Halt (4.2.8) message.
+     * An Operational Halt (5.2.5) message.
      */
     public static class OperationalHalt implements Message {
         public int  trackingNumber;
@@ -531,14 +531,14 @@ public class QBBO21 {
             bestBidProxyPrice    = readDouble4(buffer);
             bestBidSize          = getUnsignedInt(buffer);
             bestBidAmount        = readDouble4(buffer);
-            bestOfferProxyPrice    = readDouble4(buffer);
-            bestOfferSize          = getUnsignedInt(buffer);
-            bestOfferAmount        = readDouble4(buffer);
+            bestOfferProxyPrice  = readDouble4(buffer);
+            bestOfferSize        = getUnsignedInt(buffer);
+            bestOfferAmount      = readDouble4(buffer);
         }
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_ADD_ORDER);
+            buffer.put(MESSAGE_TYPE_NEXT_SHARES_QUOTATION);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -554,7 +554,7 @@ public class QBBO21 {
     }
 
     /**
-     * A Cross Trade (5.3) message.
+     * A Quotation (5.3) message.
      */
     public static class Quotation implements Message {
         public int  trackingNumber;
@@ -582,7 +582,7 @@ public class QBBO21 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_CROSS_TRADE);
+            buffer.put(MESSAGE_TYPE_QUOTATION);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -596,7 +596,7 @@ public class QBBO21 {
     }
 
     /**
-     * An RPII (4.7) message.
+     * An RPII (5.5) message.
      */
     public static class RPII implements Message {
         public int  trackingNumber;

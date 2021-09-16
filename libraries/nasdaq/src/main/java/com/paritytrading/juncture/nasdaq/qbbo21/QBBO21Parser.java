@@ -16,8 +16,8 @@
 package com.paritytrading.juncture.nasdaq.qbbo21;
 
 import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.IPOQuotingPeriodUpdate;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_ADD_ORDER;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_CROSS_TRADE;
+import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_NEXT_SHARES_QUOTATION;
+import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_QUOTATION;
 import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_IPO_QUOTING_PERIOD_UPDATE;
 import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_MWCB_DECLINE_LEVEL;
 import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_MWCB_STATUS;
@@ -119,11 +119,11 @@ public class QBBO21Parser implements MessageListener {
             operationalHalt.get(buffer);
             listener.operationalHalt(operationalHalt);
             break;
-        case MESSAGE_TYPE_ADD_ORDER:
+        case MESSAGE_TYPE_NEXT_SHARES_QUOTATION:
             nextSharesQuotation.get(buffer);
             listener.nextSharesQuotation(nextSharesQuotation);
             break;
-        case MESSAGE_TYPE_CROSS_TRADE:
+        case MESSAGE_TYPE_QUOTATION:
             quotation.get(buffer);
             listener.quotation(quotation);
             break;
