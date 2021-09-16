@@ -251,7 +251,7 @@ public class QBBO21 {
         public int   trackingNumber;
         public int   timestampHigh;
         public long  timestampLow;
-        public String  stock;
+        public String stock;
         public char  marketCategory;
         public char  financialStatusIndicator;
         public long  roundLotSize;
