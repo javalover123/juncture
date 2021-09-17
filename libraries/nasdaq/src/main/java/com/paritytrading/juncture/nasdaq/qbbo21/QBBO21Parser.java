@@ -44,6 +44,8 @@ import java.nio.ByteBuffer;
 
 /**
  * A parser for inbound messages.
+ *
+ * @author javalover123
  */
 public class QBBO21Parser implements MessageListener {
 
@@ -55,8 +57,8 @@ public class QBBO21Parser implements MessageListener {
     private MWCBStatus                mwcbStatus;
     private IPOQuotingPeriodUpdate    ipoQuotingPeriodUpdate;
     private OperationalHalt           operationalHalt;
-    private NextSharesQuotation nextSharesQuotation;
-    private Quotation quotation;
+    private NextSharesQuotation       nextSharesQuotation;
+    private Quotation                 quotation;
     private RPII                      rpii;
 
     private QBBO21Listener listener;
@@ -75,8 +77,8 @@ public class QBBO21Parser implements MessageListener {
         this.mwcbStatus                = new MWCBStatus();
         this.ipoQuotingPeriodUpdate    = new IPOQuotingPeriodUpdate();
         this.operationalHalt           = new OperationalHalt();
-        this.nextSharesQuotation = new NextSharesQuotation();
-        this.quotation = new Quotation();
+        this.nextSharesQuotation       = new NextSharesQuotation();
+        this.quotation                 = new Quotation();
         this.rpii                      = new RPII();
 
         this.listener = listener;

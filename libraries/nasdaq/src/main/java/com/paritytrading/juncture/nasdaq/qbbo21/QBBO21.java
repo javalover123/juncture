@@ -28,6 +28,8 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Common definitions.
+ *
+ * @author javalover123
  */
 public class QBBO21 {
 
