@@ -31,6 +31,8 @@ import com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.IPOQuotingPeriodUpdate;
 
 /**
  * The interface for inbound messages.
+ *
+ * @author javalover123
  */
 public interface QBBO21Listener {
 

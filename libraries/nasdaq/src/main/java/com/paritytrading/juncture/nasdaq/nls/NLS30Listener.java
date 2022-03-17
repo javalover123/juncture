@@ -38,6 +38,8 @@ import java.io.IOException;
 
 /**
  * The interface for inbound messages.
+ *
+ * @author javalover123
  */
 public interface NLS30Listener {
 

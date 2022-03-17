@@ -25,6 +25,7 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 /**
  * Common definitions.
@@ -32,6 +33,8 @@ import java.nio.charset.StandardCharsets;
  * @author javalover123
  */
 public class QBBO21 {
+
+    private static boolean DECODE_CONTAINS_HEADER = true;
 
     private QBBO21() {
     }
@@ -230,9 +233,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh  = getUnsignedShort(buffer);
+                timestampLow   = getUnsignedInt(buffer);
+            }
             eventCode      = (char) buffer.get();
         }
 
@@ -270,9 +275,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock                       = readString(buffer, 8);
             marketCategory              = (char) buffer.get();
             financialStatusIndicator    = (char) buffer.get();
@@ -326,9 +333,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock          = readString(buffer, 8);
             securityClass  = (char) buffer.get();
             tradingState   = (char) buffer.get();
@@ -360,9 +369,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock          = readString(buffer, 8);
             regSHOAction   = (char) buffer.get();
         }
@@ -391,9 +402,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             level1         = readPrice8(buffer);
             level2         = readPrice8(buffer);
             level3         = readPrice8(buffer);
@@ -422,9 +435,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             breachedLevel  = (char) buffer.get();
         }
 
@@ -452,9 +467,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber               = getUnsignedShort(buffer);
-            timestampHigh                = getUnsignedShort(buffer);
-            timestampLow                 = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock                        = readString(buffer, 8);
             ipoQuotationReleaseTime      = getUnsignedInt(buffer);
             ipoQuotationReleaseQualifier = (char) buffer.get();
@@ -487,9 +504,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber        = getUnsignedShort(buffer);
-            timestampHigh         = getUnsignedShort(buffer);
-            timestampLow          = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock                 = readString(buffer, 8);
             marketCode            = (char) buffer.get();
             operationalHaltAction = (char) buffer.get();
@@ -525,9 +544,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber       = getUnsignedShort(buffer);
-            timestampHigh        = getUnsignedShort(buffer);
-            timestampLow         = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock                = readString(buffer, 8);
             securityClass        = (char) buffer.get();
             bestBidProxyPrice    = readDouble4(buffer);
@@ -571,9 +592,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock          = readString(buffer, 8);
             securityClass  = (char) buffer.get();
             bestBidPrice   = readDouble4(buffer);
@@ -609,9 +632,11 @@ public class QBBO21 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock          = readString(buffer, 8);
             interestFlag   = (char) buffer.get();
         }
@@ -625,6 +650,15 @@ public class QBBO21 {
             buffer.put(stock.getBytes(StandardCharsets.UTF_8));
             buffer.put((byte) interestFlag);
         }
+    }
+
+    public static boolean isDecodeContainsHeader() {
+        return DECODE_CONTAINS_HEADER;
+    }
+
+    public static void setDecodeContainsHeader(boolean decodeContainsHeader) {
+        System.err.println(LocalDateTime.now() + ",qbbo21 setDecodeContainsHeader," + decodeContainsHeader);
+        DECODE_CONTAINS_HEADER = decodeContainsHeader;
     }
 
 }

@@ -25,11 +25,16 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 /**
  * Common definitions.
+ *
+ * @author javalover123
  */
 public class NLS30 {
+
+    private static boolean DECODE_CONTAINS_HEADER = true;
 
     private NLS30() {
     }
@@ -304,9 +309,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             eventCode      = (char) buffer.get();
         }
 
@@ -342,9 +349,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             originatingMarketCenterIdentifier = (char) buffer.get();
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
@@ -403,9 +412,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             originatingMarketCenterIdentifier = (char) buffer.get();
             nextSharesSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
@@ -461,9 +472,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             originatingMarketCenterIdentifier = (char) buffer.get();
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
@@ -510,9 +523,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             marketCenterIdentifier = (char) buffer.get();
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
@@ -564,9 +579,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             originatingMarketCenterIdentifier = (char) buffer.get();
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
@@ -626,9 +643,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             marketCenterIdentifier = (char) buffer.get();
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
@@ -683,9 +702,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             reserved  = (char) buffer.get();
             issueSymbol = readString(buffer, 8);
             securityClass  = (char) buffer.get();
@@ -731,9 +752,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber              = getUnsignedShort(buffer);
-            timestampHigh               = getUnsignedShort(buffer);
-            timestampLow                = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock                       = readString(buffer, 8);
             marketCategory              = (char) buffer.get();
             financialStatusIndicator    = (char) buffer.get();
@@ -787,9 +810,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             issueSymbol = readString(buffer, 8);
             regSHOAction   = (char) buffer.get();
         }
@@ -818,9 +843,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
             adjustedClosingPrice = readDouble4(buffer);
@@ -854,9 +881,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             issueSymbol = readString(buffer, 8);
             marketCategory = (char) buffer.get();
             nasdaqHighPrice = readDouble4(buffer);
@@ -899,9 +928,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             issueSymbol = readString(buffer, 8);
             marketCategory = (char) buffer.get();
             nasdaqHighPrice = readDouble4(buffer);
@@ -945,9 +976,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber               = getUnsignedShort(buffer);
-            timestampHigh                = getUnsignedShort(buffer);
-            timestampLow                 = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
             referenceForNetChange = (char) buffer.get();
@@ -980,9 +1013,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             level1         = readPrice8(buffer);
             level2         = readPrice8(buffer);
             level3         = readPrice8(buffer);
@@ -1011,9 +1046,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber = getUnsignedShort(buffer);
-            timestampHigh  = getUnsignedShort(buffer);
-            timestampLow   = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             breachedLevel  = (char) buffer.get();
         }
 
@@ -1041,9 +1078,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber               = getUnsignedShort(buffer);
-            timestampHigh                = getUnsignedShort(buffer);
-            timestampLow                 = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock                        = readString(buffer, 8);
             ipoQuotationReleaseTime      = getUnsignedInt(buffer);
             ipoQuotationReleaseQualifier = (char) buffer.get();
@@ -1076,9 +1115,11 @@ public class NLS30 {
 
         @Override
         public void get(ByteBuffer buffer) {
-            trackingNumber        = getUnsignedShort(buffer);
-            timestampHigh         = getUnsignedShort(buffer);
-            timestampLow          = getUnsignedInt(buffer);
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
             stock                 = readString(buffer, 8);
             marketCode            = (char) buffer.get();
             operationalHaltAction = (char) buffer.get();
@@ -1094,6 +1135,15 @@ public class NLS30 {
             buffer.put((byte) marketCode);
             buffer.put((byte) operationalHaltAction);
         }
+    }
+
+    public static boolean isDecodeContainsHeader() {
+        return DECODE_CONTAINS_HEADER;
+    }
+
+    public static void setDecodeContainsHeader(boolean decodeContainsHeader) {
+        System.err.println(LocalDateTime.now() + ",nls30 setDecodeContainsHeader," + decodeContainsHeader);
+        DECODE_CONTAINS_HEADER = decodeContainsHeader;
     }
 
 }
