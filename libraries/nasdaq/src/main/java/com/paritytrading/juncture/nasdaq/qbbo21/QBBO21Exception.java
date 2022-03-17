@@ -18,7 +18,7 @@ package com.paritytrading.juncture.nasdaq.qbbo21;
 import java.io.IOException;
 
 /**
- * Indicates a protocol error while handling the NASDAQ TotalView-ITCH 5.0
+ * Indicates a protocol error while handling the NASDAQ QBBO 2.1
  * protocol.
  */
 public class QBBO21Exception extends IOException {
