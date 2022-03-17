@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.paritytrading.juncture.nasdaq.nls;
+package com.paritytrading.juncture.nasdaq.nls30;
 
 import static com.paritytrading.foundation.ByteBuffers.getUnsignedInt;
 import static com.paritytrading.foundation.ByteBuffers.getUnsignedShort;

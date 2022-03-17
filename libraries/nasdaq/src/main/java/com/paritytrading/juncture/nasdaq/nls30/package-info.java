@@ -17,4 +17,4 @@
 /**
  * This package contains an implementation of NASDAQ NLS plus 3.0.
  */
-package com.paritytrading.juncture.nasdaq.nls;
+package com.paritytrading.juncture.nasdaq.nls30;

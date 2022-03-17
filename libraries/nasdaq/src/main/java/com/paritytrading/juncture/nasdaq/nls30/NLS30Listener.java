@@ -13,27 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.paritytrading.juncture.nasdaq.nls;
+package com.paritytrading.juncture.nasdaq.nls30;
 
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.MWCBDeclineLevel;
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.MWCBStatus;
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.OperationalHalt;
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.RegSHORestriction;
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.StockDirectory;
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.StockTradingAction;
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.SystemEvent;
+import static com.paritytrading.juncture.nasdaq.nls30.NLS30.*;
 
-import com.paritytrading.juncture.nasdaq.nls.NLS30.AdjustedClosingPrice;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.EndOfDayTradeSummary;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.EndOfDayTradeSummaryNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.IPOInformation;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.IPOQuotingPeriodUpdate;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCancelErrorForNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCancelErrorForNonNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCorrectionForNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCorrectionForNonNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeReportForNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeReportForNonNextShares;
 import java.io.IOException;
 
 /**

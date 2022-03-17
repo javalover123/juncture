@@ -13,20 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.paritytrading.juncture.nasdaq.nls;
+package com.paritytrading.juncture.nasdaq.nls30;
 
-import static com.paritytrading.juncture.nasdaq.nls.NLS30.*;
+import static com.paritytrading.juncture.nasdaq.nls30.NLS30.*;
 
-import com.paritytrading.juncture.nasdaq.nls.NLS30.AdjustedClosingPrice;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.EndOfDayTradeSummary;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.EndOfDayTradeSummaryNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.IPOInformation;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCancelErrorForNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCancelErrorForNonNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCorrectionForNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeCorrectionForNonNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeReportForNextShares;
-import com.paritytrading.juncture.nasdaq.nls.NLS30.TradeReportForNonNextShares;
 import com.paritytrading.nassau.MessageListener;
 import java.io.IOException;
 import java.nio.ByteBuffer;
