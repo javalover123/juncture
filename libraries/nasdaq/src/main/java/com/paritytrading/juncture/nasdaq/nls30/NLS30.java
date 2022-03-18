@@ -341,10 +341,6 @@ public class NLS30 {
         public double  tradePrice;
         public long tradeSize;
         public String saleConditionModifier;
-        public char saleConditionModifierLevel1;
-        public char saleConditionModifierLevel2;
-        public char saleConditionModifierLevel3;
-        public char saleConditionModifierLevel4;
         public long consolidatedVolume;
 
         @Override
@@ -361,10 +357,6 @@ public class NLS30 {
             tradePrice = readDouble4(buffer);
             tradeSize = getUnsignedInt(buffer);
             saleConditionModifier = readString(buffer, 4);
-            saleConditionModifierLevel1 = (char) buffer.get();
-            saleConditionModifierLevel2 = (char) buffer.get();
-            saleConditionModifierLevel3 = (char) buffer.get();
-            saleConditionModifierLevel4 = (char) buffer.get();
             consolidatedVolume = buffer.getLong();
         }
 
@@ -381,10 +373,6 @@ public class NLS30 {
             put(buffer, tradePrice);
             putUnsignedInt(buffer, tradeSize);
             buffer.put(saleConditionModifier.getBytes(StandardCharsets.UTF_8));
-            buffer.put((byte) saleConditionModifierLevel1);
-            buffer.put((byte) saleConditionModifierLevel2);
-            buffer.put((byte) saleConditionModifierLevel3);
-            buffer.put((byte) saleConditionModifierLevel4);
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -404,10 +392,6 @@ public class NLS30 {
         public long tradeSize;
         public double navOffsetAmount;
         public String saleConditionModifier;
-        public char saleConditionModifierLevel1;
-        public char saleConditionModifierLevel2;
-        public char saleConditionModifierLevel3;
-        public char saleConditionModifierLevel4;
         public long consolidatedVolume;
 
         @Override
@@ -425,10 +409,6 @@ public class NLS30 {
             tradeSize = getUnsignedInt(buffer);
             navOffsetAmount = readDouble4(buffer);
             saleConditionModifier = readString(buffer, 4);
-            saleConditionModifierLevel1 = (char) buffer.get();
-            saleConditionModifierLevel2 = (char) buffer.get();
-            saleConditionModifierLevel3 = (char) buffer.get();
-            saleConditionModifierLevel4 = (char) buffer.get();
             consolidatedVolume = buffer.getLong();
         }
 
@@ -446,10 +426,6 @@ public class NLS30 {
             putUnsignedInt(buffer, tradeSize);
             put(buffer, navOffsetAmount);
             buffer.put(saleConditionModifier.getBytes(StandardCharsets.UTF_8));
-            buffer.put((byte) saleConditionModifierLevel1);
-            buffer.put((byte) saleConditionModifierLevel2);
-            buffer.put((byte) saleConditionModifierLevel3);
-            buffer.put((byte) saleConditionModifierLevel4);
             buffer.putLong(consolidatedVolume);
         }
     }
