@@ -30,16 +30,21 @@ public class NLS30Parser implements MessageListener {
 
     private SystemEvent               systemEvent;
     private TradeReportForNonNextShares tradeReportForNonNextShares;
+    private LongFormTradeReportForNonNextShares longFormTradeReportForNonNextShares;
     private TradeReportForNextShares    tradeReportForNextShares;
     private TradeCancelErrorForNonNextShares tradeCancelErrorForNonNextShares;
+    private LongFormTradeCancelErrorForNonNextShares longFormTradeCancelErrorForNonNextShares;
     private TradeCancelErrorForNextShares tradeCancelErrorForNextShares;
     private TradeCorrectionForNonNextShares tradeCorrectionForNonNextShares;
+    private LongFormTradeCorrectionForNonNextShares longFormTradeCorrectionForNonNextShares;
     private TradeCorrectionForNextShares tradeCorrectionForNextShares;
     private StockDirectory            stockDirectory;
     private StockTradingAction        stockTradingAction;
     private RegSHORestriction         regSHORestriction;
     private AdjustedClosingPrice      adjustedClosingPrice;
+    private LongFormAdjustedClosingPrice      longFormAdjustedClosingPrice;
     private EndOfDayTradeSummary endOfDayTradeSummary;
+    private LongFormEndOfDayTradeSummary longFormEndOfDayTradeSummary;
     private EndOfDayTradeSummaryNextShares endOfDayTradeSummaryNextShares;
     private IPOInformation            ipoInformation;
     private MWCBDeclineLevel          mwcbDeclineLevel;
@@ -57,16 +62,21 @@ public class NLS30Parser implements MessageListener {
     public NLS30Parser(NLS30Listener listener) {
         this.systemEvent               = new SystemEvent();
         this.tradeReportForNonNextShares               = new TradeReportForNonNextShares();
+        this.longFormTradeReportForNonNextShares               = new LongFormTradeReportForNonNextShares();
         this.tradeReportForNextShares               = new TradeReportForNextShares();
         this.tradeCancelErrorForNonNextShares               = new TradeCancelErrorForNonNextShares();
+        this.longFormTradeCancelErrorForNonNextShares               = new LongFormTradeCancelErrorForNonNextShares();
         this.tradeCancelErrorForNextShares               = new TradeCancelErrorForNextShares();
         this.tradeCorrectionForNonNextShares               = new TradeCorrectionForNonNextShares();
+        this.longFormTradeCorrectionForNonNextShares               = new LongFormTradeCorrectionForNonNextShares();
         this.tradeCorrectionForNextShares               = new TradeCorrectionForNextShares();
         this.stockDirectory            = new StockDirectory();
         this.stockTradingAction        = new StockTradingAction();
         this.regSHORestriction         = new RegSHORestriction();
         this.adjustedClosingPrice               = new AdjustedClosingPrice();
+        this.longFormAdjustedClosingPrice               = new LongFormAdjustedClosingPrice();
         this.endOfDayTradeSummary               = new EndOfDayTradeSummary();
+        this.longFormEndOfDayTradeSummary               = new LongFormEndOfDayTradeSummary();
         this.endOfDayTradeSummaryNextShares               = new EndOfDayTradeSummaryNextShares();
         this.ipoInformation            = new IPOInformation();
         this.mwcbDeclineLevel          = new MWCBDeclineLevel();
@@ -90,6 +100,10 @@ public class NLS30Parser implements MessageListener {
             tradeReportForNonNextShares.get(buffer);
             listener.tradeReportForNonNextShares(tradeReportForNonNextShares);
             break;
+        case MESSAGE_TYPE_LONG_FORM_TRADE_REPORT_FOR_NON_NEXT_SHARES:
+            longFormTradeReportForNonNextShares.get(buffer);
+            listener.tradeReportForNonNextShares(longFormTradeReportForNonNextShares);
+            break;
         case MESSAGE_TYPE_TRADE_REPORT_FOR_NEXT_SHARES:
             tradeReportForNextShares.get(buffer);
             listener.tradeReportForNextShares(tradeReportForNextShares);
@@ -98,6 +112,10 @@ public class NLS30Parser implements MessageListener {
             tradeCancelErrorForNonNextShares.get(buffer);
             listener.tradeCancelErrorForNonNextShares(tradeCancelErrorForNonNextShares);
             break;
+        case MESSAGE_TYPE_LONG_FORM_TRADE_CANCEL_ERROR_FOR_NON_NEXT_SHARES:
+            longFormTradeCancelErrorForNonNextShares.get(buffer);
+            listener.tradeCancelErrorForNonNextShares(longFormTradeCancelErrorForNonNextShares);
+            break;
         case MESSAGE_TYPE_TRADE_CANCEL_ERROR_FOR_NEXT_SHARES:
             tradeCancelErrorForNextShares.get(buffer);
             listener.tradeCancelErrorForNextShares(tradeCancelErrorForNextShares);
@@ -105,6 +123,10 @@ public class NLS30Parser implements MessageListener {
         case MESSAGE_TYPE_TRADE_CORRECTION_FOR_NON_NEXT_SHARES:
             tradeCorrectionForNonNextShares.get(buffer);
             listener.tradeCorrectionForNonNextShares(tradeCorrectionForNonNextShares);
+            break;
+        case MESSAGE_TYPE_LONG_FORM_TRADE_CORRECTION_FOR_NON_NEXT_SHARES:
+            longFormTradeCorrectionForNonNextShares.get(buffer);
+            listener.tradeCorrectionForNonNextShares(longFormTradeCorrectionForNonNextShares);
             break;
         case MESSAGE_TYPE_TRADE_CORRECTION_FOR_NEXT_SHARES:
             tradeCorrectionForNextShares.get(buffer);
@@ -126,9 +148,17 @@ public class NLS30Parser implements MessageListener {
             adjustedClosingPrice.get(buffer);
             listener.adjustedClosingPrice(adjustedClosingPrice);
             break;
+        case MESSAGE_TYPE_LONG_FORM_ADJUSTED_CLOSING_PRICE:
+            longFormAdjustedClosingPrice.get(buffer);
+            listener.adjustedClosingPrice(longFormAdjustedClosingPrice);
+            break;
         case MESSAGE_TYPE_END_OF_DAY_TRADE_SUMMARY:
             endOfDayTradeSummary.get(buffer);
             listener.endOfDayTradeSummary(endOfDayTradeSummary);
+            break;
+        case MESSAGE_TYPE_LONG_FORM_END_OF_DAY_TRADE_SUMMARY:
+            longFormEndOfDayTradeSummary.get(buffer);
+            listener.endOfDayTradeSummary(longFormEndOfDayTradeSummary);
             break;
         case MESSAGE_TYPE_END_OF_DAY_TRADE_SUMMARY_NEXT_SHARES:
             endOfDayTradeSummaryNextShares.get(buffer);
@@ -155,7 +185,9 @@ public class NLS30Parser implements MessageListener {
             listener.operationalHalt(operationalHalt);
             break;
         default:
-            throw new NLS30Exception("Unknown message type: " + (char)messageType);
+            final char type = (char) messageType;
+            System.err.println("nls plus,Unknown message type: " + type);
+            // throw new NLS30Exception("Unknown message type: " + (char)messageType);
         }
     }
 

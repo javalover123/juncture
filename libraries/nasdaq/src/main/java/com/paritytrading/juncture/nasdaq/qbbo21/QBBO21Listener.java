@@ -15,19 +15,9 @@
  */
 package com.paritytrading.juncture.nasdaq.qbbo21;
 
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MWCBDeclineLevel;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MWCBStatus;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.NextSharesQuotation;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.OperationalHalt;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.Quotation;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.RPII;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.RegSHORestriction;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.StockDirectory;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.StockTradingAction;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.SystemEvent;
+import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.*;
 
 import java.io.IOException;
-import com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.IPOQuotingPeriodUpdate;
 
 /**
  * The interface for inbound messages.

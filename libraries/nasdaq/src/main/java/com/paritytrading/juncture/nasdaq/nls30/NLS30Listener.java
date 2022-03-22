@@ -43,6 +43,14 @@ public interface NLS30Listener {
     void tradeReportForNonNextShares(TradeReportForNonNextShares message) throws IOException;
 
     /**
+     * Receive a Trade Report for Non-NextShares message.
+     *
+     * @param message the message
+     * @throws IOException if an I/O error occurs
+     */
+    void tradeReportForNonNextShares(LongFormTradeReportForNonNextShares message) throws IOException;
+
+    /**
      * Receive a Trade Report for NextShares message.
      *
      * @param message the message
@@ -59,6 +67,14 @@ public interface NLS30Listener {
     void tradeCancelErrorForNonNextShares(TradeCancelErrorForNonNextShares message) throws IOException;
 
     /**
+     * Receive a Trade Cancel/Error for Non-NextShares message.
+     *
+     * @param message the message
+     * @throws IOException if an I/O error occurs
+     */
+    void tradeCancelErrorForNonNextShares(LongFormTradeCancelErrorForNonNextShares message) throws IOException;
+
+    /**
      * Receive a Trade Cancel/Error for NextShares message.
      *
      * @param message the message
@@ -73,6 +89,14 @@ public interface NLS30Listener {
      * @throws IOException if an I/O error occurs
      */
     void tradeCorrectionForNonNextShares(TradeCorrectionForNonNextShares message) throws IOException;
+
+    /**
+     * Receive a Trade Correction for Non-NextShares message.
+     *
+     * @param message the message
+     * @throws IOException if an I/O error occurs
+     */
+    void tradeCorrectionForNonNextShares(LongFormTradeCorrectionForNonNextShares message) throws IOException;
 
     /**
      * Receive a Trade Correction for NextShares message.
@@ -115,12 +139,28 @@ public interface NLS30Listener {
     void adjustedClosingPrice(AdjustedClosingPrice message) throws IOException;
 
     /**
+     * Receive a Adjusted Closing Price message.
+     *
+     * @param message the message
+     * @throws IOException if an I/O error occurs
+     */
+    void adjustedClosingPrice(LongFormAdjustedClosingPrice message) throws IOException;
+
+    /**
      * Receive a End of Day Trade Summary message.
      *
      * @param message the message
      * @throws IOException if an I/O error occurs
      */
     void endOfDayTradeSummary(EndOfDayTradeSummary message) throws IOException;
+
+    /**
+     * Receive a End of Day Trade Summary message.
+     *
+     * @param message the message
+     * @throws IOException if an I/O error occurs
+     */
+    void endOfDayTradeSummary(LongFormEndOfDayTradeSummary message) throws IOException;
 
     /**
      * Receive a End of Day Trade Summary - NextShares message.

@@ -15,28 +15,7 @@
  */
 package com.paritytrading.juncture.nasdaq.qbbo21;
 
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.IPOQuotingPeriodUpdate;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_NEXT_SHARES_QUOTATION;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_QUOTATION;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_IPO_QUOTING_PERIOD_UPDATE;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_MWCB_DECLINE_LEVEL;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_MWCB_STATUS;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_OPERATIONAL_HALT;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_REG_SHO_RESTRICTION;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_RPII;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_STOCK_DIRECTORY;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_STOCK_TRADING_ACTION;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MESSAGE_TYPE_SYSTEM_EVENT;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MWCBDeclineLevel;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.MWCBStatus;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.NextSharesQuotation;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.OperationalHalt;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.Quotation;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.RPII;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.RegSHORestriction;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.StockDirectory;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.StockTradingAction;
-import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.SystemEvent;
+import static com.paritytrading.juncture.nasdaq.qbbo21.QBBO21.*;
 
 import com.paritytrading.nassau.MessageListener;
 import java.io.IOException;
@@ -134,7 +113,9 @@ public class QBBO21Parser implements MessageListener {
             listener.rpii(rpii);
             break;
         default:
-            throw new QBBO21Exception("Unknown message type: " + (char)messageType);
+            final char type = (char) messageType;
+            System.err.println("qbbo,Unknown message type: " + type);
+            // throw new QBBO21Exception("Unknown message type: " + type);
         }
     }
 

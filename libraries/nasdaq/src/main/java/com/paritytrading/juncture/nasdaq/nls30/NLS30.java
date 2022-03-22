@@ -45,16 +45,21 @@ public class NLS30 {
 
     public static final byte MESSAGE_TYPE_SYSTEM_EVENT                = 'S';
     public static final byte MESSAGE_TYPE_TRADE_REPORT_FOR_NON_NEXT_SHARES = 'T';
+    public static final byte MESSAGE_TYPE_LONG_FORM_TRADE_REPORT_FOR_NON_NEXT_SHARES = 't';
     public static final byte MESSAGE_TYPE_TRADE_REPORT_FOR_NEXT_SHARES = 'M';
     public static final byte MESSAGE_TYPE_TRADE_CANCEL_ERROR_FOR_NON_NEXT_SHARES = 'X';
+    public static final byte MESSAGE_TYPE_LONG_FORM_TRADE_CANCEL_ERROR_FOR_NON_NEXT_SHARES = 'x';
     public static final byte MESSAGE_TYPE_TRADE_CANCEL_ERROR_FOR_NEXT_SHARES = 'O';
     public static final byte MESSAGE_TYPE_TRADE_CORRECTION_FOR_NON_NEXT_SHARES = 'C';
+    public static final byte MESSAGE_TYPE_LONG_FORM_TRADE_CORRECTION_FOR_NON_NEXT_SHARES = 'c';
     public static final byte MESSAGE_TYPE_TRADE_CORRECTION_FOR_NEXT_SHARES = 'Z';
     public static final byte MESSAGE_TYPE_STOCK_TRADING_ACTION        = 'H';
     public static final byte MESSAGE_TYPE_STOCK_DIRECTORY             = 'R';
     public static final byte MESSAGE_TYPE_REG_SHO_RESTRICTION         = 'Y';
     public static final byte MESSAGE_TYPE_ADJUSTED_CLOSING_PRICE      = 'G';
+    public static final byte MESSAGE_TYPE_LONG_FORM_ADJUSTED_CLOSING_PRICE      = 'g';
     public static final byte MESSAGE_TYPE_END_OF_DAY_TRADE_SUMMARY    = 'J';
+    public static final byte MESSAGE_TYPE_LONG_FORM_END_OF_DAY_TRADE_SUMMARY    = 'j';
     public static final byte MESSAGE_TYPE_END_OF_DAY_TRADE_SUMMARY_NEXT_SHARES = 'N';
     public static final byte MESSAGE_TYPE_IPO_INFORMATION             = 'I';
     public static final byte MESSAGE_TYPE_MWCB_DECLINE_LEVEL          = 'V';
@@ -138,7 +143,7 @@ public class NLS30 {
     public static final byte SALE_CONDITION_MODIFIER_LEVEL4_NOT_APPLICABLE             = ' ';
 
     /*
-     * Trading State (5.8.1) values.
+     * Trading State (5.11.1) values.
      */
     public static final byte TRADING_STATE_HALTED           = 'H';
     public static final byte TRADING_STATE_PAUSED           = 'P';
@@ -146,7 +151,7 @@ public class NLS30 {
     public static final byte TRADING_STATE_TRADING          = 'T';
 
     /*
-     * Market Category (5.8.2) values.
+     * Market Category (5.11.2) values.
      */
     public static final byte MARKET_CATEGORY_NASDAQ_GLOBAL_SELECT_MARKET = 'Q';
     public static final byte MARKET_CATEGORY_NASDAQ_GLOBAL_MARKET        = 'G';
@@ -159,7 +164,7 @@ public class NLS30 {
     public static final byte MARKET_CATEGORY_NOT_AVAILABLE               = ' ';
 
     /*
-     * Financial Status Indicator (5.8.2) values.
+     * Financial Status Indicator (5.11.2) values.
      */
     public static final byte FINANCIAL_STATUS_INDICATOR_DEFICIENT                       = 'D';
     public static final byte FINANCIAL_STATUS_INDICATOR_DELINQUENT                      = 'E';
@@ -174,26 +179,26 @@ public class NLS30 {
     public static final byte FINANCIAL_STATUS_INDICATOR_NOT_AVAILABLE                   = ' ';
 
     /*
-     * Authenticity (5.8.2) values.
+     * Authenticity (5.11.2) values.
      */
     public static final byte AUTHENTICITY_PRODUCTION = 'P';
     public static final byte AUTHENTICTY_TEST        = 'T';
 
     /*
-     * LULD Reference Price Tier (5.8.2) values.
+     * LULD Reference Price Tier (5.11.2) values.
      */
     public static final byte LULD_REFERENCE_PRICE_TIER_1 = '1';
     public static final byte LULD_REFERENCE_PRICE_TIER_2 = '2';
 
     /*
-     * Reg SHO Action (5.8.3) values.
+     * Reg SHO Action (5.11.3) values.
      */
     public static final byte REG_SHO_ACTION_NO_PRICE_TEST                              = '0';
     public static final byte REG_SHO_ACTION_SHORT_SALE_PRICE_TEST_INTRA_DAY_PRICE_DROP = '1';
     public static final byte REG_SHO_ACTION_SHORT_SALE_PRICE_TEST                      = '2';
 
     /*
-     * Reference For Net Change (5.8.7) values.
+     * Reference For Net Change (5.11.9) values.
      */
     public static final byte REFERENCE_FOR_NET_CHANGE_FIRST_TRADE_PRICE                = 'F';
     public static final byte REFERENCE_FOR_NET_CHANGE_UNDERWRITER_PRICE                = 'W';
@@ -206,13 +211,13 @@ public class NLS30 {
     public static final byte BREACHED_LEVEL_3 = '3';
 
     /*
-     * IPO Quotation Release Qualifier (5.8.9) values.
+     * IPO Quotation Release Qualifier (5.11.11) values.
      */
     public static final byte IPO_QUOTATION_RELEASE_QUALIFIER_ANTICIPATED_QUOTATION_TIME     = 'A';
     public static final byte IPO_QUOTATION_RELEASE_QUALIFIER_IPO_RELEASE_CANCELED_POSTPONED = 'C';
 
     /*
-     * Operational Halt Action (5.2.5) values.
+     * Operational Halt Action (5.8.10) values.
      */
     public static final byte OPERATIONAL_HALT_ACTION_OPERATIONALLY_HALTED = 'H';
     public static final byte OPERATIONAL_HALT_ACTION_TRADING_RESUMED      = 'T';
@@ -362,7 +367,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_STOCK_DIRECTORY);
+            buffer.put(MESSAGE_TYPE_TRADE_REPORT_FOR_NON_NEXT_SHARES);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -378,7 +383,57 @@ public class NLS30 {
     }
 
     /**
-     * A Trade Report for NextShares (5.3) message.
+     * A Long Form Trade Report for Non-NextShares (5.3) message.
+     */
+    public static class LongFormTradeReportForNonNextShares implements Message {
+        public int   trackingNumber;
+        public int   timestampHigh;
+        public long  timestampLow;
+        public char  originatingMarketCenterIdentifier;
+        public String issueSymbol;
+        public char securityClass;
+        public String tradeControlNumber;
+        public double  tradePrice;
+        public long tradeSize;
+        public String saleConditionModifier;
+        public long consolidatedVolume;
+
+        @Override
+        public void get(ByteBuffer buffer) {
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
+            originatingMarketCenterIdentifier = (char) buffer.get();
+            issueSymbol = readString(buffer, 8);
+            securityClass = (char) buffer.get();
+            tradeControlNumber = readString(buffer, 10);
+            tradePrice = readDouble4(buffer);
+            tradeSize = getUnsignedInt(buffer);
+            saleConditionModifier = readString(buffer, 4);
+            consolidatedVolume = buffer.getLong();
+        }
+
+        @Override
+        public void put(ByteBuffer buffer) {
+            buffer.put(MESSAGE_TYPE_LONG_FORM_TRADE_REPORT_FOR_NON_NEXT_SHARES);
+            putUnsignedShort(buffer, trackingNumber);
+            putUnsignedShort(buffer, timestampHigh);
+            putUnsignedInt(buffer, timestampLow);
+            buffer.put((byte) originatingMarketCenterIdentifier);
+            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) securityClass);
+            buffer.put(tradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            put(buffer, tradePrice);
+            putUnsignedInt(buffer, tradeSize);
+            buffer.put(saleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.putLong(consolidatedVolume);
+        }
+    }
+
+    /**
+     * A Trade Report for NextShares (5.4) message.
      */
     public static class TradeReportForNextShares implements Message {
         public int   trackingNumber;
@@ -414,7 +469,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_STOCK_DIRECTORY);
+            buffer.put(MESSAGE_TYPE_TRADE_REPORT_FOR_NEXT_SHARES);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -431,7 +486,7 @@ public class NLS30 {
     }
 
     /**
-     * A Trade Cancel/Error for Non-NextShares (5.4) message.
+     * A Trade Cancel/Error for Non-NextShares (5.5) message.
      */
     public static class TradeCancelErrorForNonNextShares implements Message {
         public int   trackingNumber;
@@ -465,7 +520,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_STOCK_DIRECTORY);
+            buffer.put(MESSAGE_TYPE_TRADE_CANCEL_ERROR_FOR_NON_NEXT_SHARES);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -481,7 +536,57 @@ public class NLS30 {
     }
 
     /**
-     * A Trade Cancel/Error for NextShares (5.5) message.
+     * A Long Form Trade Cancel/Error for Non-NextShares (5.6) message.
+     */
+    public static class LongFormTradeCancelErrorForNonNextShares implements Message {
+        public int   trackingNumber;
+        public int   timestampHigh;
+        public long  timestampLow;
+        public char  originatingMarketCenterIdentifier;
+        public String issueSymbol;
+        public char securityClass;
+        public String originalTradeControlNumber;
+        public double originalTradePrice;
+        public long originalTradeSize;
+        public String originalSaleConditionModifier;
+        public long consolidatedVolume;
+
+        @Override
+        public void get(ByteBuffer buffer) {
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
+            originatingMarketCenterIdentifier = (char) buffer.get();
+            issueSymbol = readString(buffer, 8);
+            securityClass = (char) buffer.get();
+            originalTradeControlNumber = readString(buffer, 10);
+            originalTradePrice = readDouble4(buffer);
+            originalTradeSize = getUnsignedInt(buffer);
+            originalSaleConditionModifier = readString(buffer, 4);
+            consolidatedVolume = buffer.getLong();
+        }
+
+        @Override
+        public void put(ByteBuffer buffer) {
+            buffer.put(MESSAGE_TYPE_LONG_FORM_TRADE_CANCEL_ERROR_FOR_NON_NEXT_SHARES);
+            putUnsignedShort(buffer, trackingNumber);
+            putUnsignedShort(buffer, timestampHigh);
+            putUnsignedInt(buffer, timestampLow);
+            buffer.put((byte) originatingMarketCenterIdentifier);
+            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) securityClass);
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            put(buffer, originalTradePrice);
+            putUnsignedInt(buffer, originalTradeSize);
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.putLong(consolidatedVolume);
+        }
+    }
+
+    /**
+     * A Trade Cancel/Error for NextShares (5.7) message.
      */
     public static class TradeCancelErrorForNextShares implements Message {
         public int   trackingNumber;
@@ -517,7 +622,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_STOCK_DIRECTORY);
+            buffer.put(MESSAGE_TYPE_TRADE_CANCEL_ERROR_FOR_NEXT_SHARES);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -534,7 +639,7 @@ public class NLS30 {
     }
 
     /**
-     * A Trade Correction for Non-NextShares (5.6) message.
+     * A Trade Correction for Non-NextShares (5.11. message.
      */
     public static class TradeCorrectionForNonNextShares implements Message {
         public int   trackingNumber;
@@ -576,7 +681,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_STOCK_DIRECTORY);
+            buffer.put(MESSAGE_TYPE_TRADE_CORRECTION_FOR_NON_NEXT_SHARES);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -596,7 +701,69 @@ public class NLS30 {
     }
 
     /**
-     * A Trade Correction for NextShares (5.7) message.
+     * A Long Form Trade Correction for Non-NextShares (5.9) message.
+     */
+    public static class LongFormTradeCorrectionForNonNextShares implements Message {
+        public int   trackingNumber;
+        public int   timestampHigh;
+        public long  timestampLow;
+        public char  originatingMarketCenterIdentifier;
+        public String issueSymbol;
+        public char securityClass;
+        public String originalTradeControlNumber;
+        public double originalTradePrice;
+        public long originalTradeSize;
+        public String originalSaleConditionModifier;
+        public String correctionTradeControlNumber;
+        public double correctionTradePrice;
+        public long correctionTradeSize;
+        public String correctionSaleConditionModifier;
+        public long consolidatedVolume;
+
+        @Override
+        public void get(ByteBuffer buffer) {
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
+            originatingMarketCenterIdentifier = (char) buffer.get();
+            issueSymbol = readString(buffer, 8);
+            securityClass = (char) buffer.get();
+            originalTradeControlNumber = readString(buffer, 10);
+            originalTradePrice = readDouble4(buffer);
+            originalTradeSize = getUnsignedInt(buffer);
+            originalSaleConditionModifier = readString(buffer, 4);
+            correctionTradeControlNumber = readString(buffer, 10);
+            correctionTradePrice = readDouble4(buffer);
+            correctionTradeSize = getUnsignedInt(buffer);
+            correctionSaleConditionModifier = readString(buffer, 4);
+            consolidatedVolume = buffer.getLong();
+        }
+
+        @Override
+        public void put(ByteBuffer buffer) {
+            buffer.put(MESSAGE_TYPE_LONG_FORM_TRADE_CORRECTION_FOR_NON_NEXT_SHARES);
+            putUnsignedShort(buffer, trackingNumber);
+            putUnsignedShort(buffer, timestampHigh);
+            putUnsignedInt(buffer, timestampLow);
+            buffer.put((byte) originatingMarketCenterIdentifier);
+            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) securityClass);
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            put(buffer, originalTradePrice);
+            putUnsignedInt(buffer, originalTradeSize);
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            put(buffer, correctionTradePrice);
+            putUnsignedInt(buffer, correctionTradeSize);
+            buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.putLong(consolidatedVolume);
+        }
+    }
+
+    /**
+     * A Trade Correction for NextShares (5.10) message.
      */
     public static class TradeCorrectionForNextShares implements Message {
         public int   trackingNumber;
@@ -642,7 +809,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_STOCK_DIRECTORY);
+            buffer.put(MESSAGE_TYPE_TRADE_CORRECTION_FOR_NEXT_SHARES);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -664,7 +831,7 @@ public class NLS30 {
     }
 
     /**
-     * A Stock Trading Action (5.8.1) message.
+     * A Stock Trading Action (5.11.1) message.
      */
     public static class StockTradingAction implements Message {
         public int  trackingNumber;
@@ -704,7 +871,7 @@ public class NLS30 {
     }
 
     /**
-     * A Stock Directory (5.8.2) message.
+     * A Stock Directory (5.11.2) message.
      */
     public static class StockDirectory implements Message {
         public int   trackingNumber;
@@ -775,7 +942,7 @@ public class NLS30 {
     }
 
     /**
-     * A Reg SHO Restriction (5.8.3) message.
+     * A Reg SHO Restriction (5.11.3) message.
      */
     public static class RegSHORestriction implements Message {
         public int  trackingNumber;
@@ -807,7 +974,7 @@ public class NLS30 {
     }
 
     /**
-     * A Adjusted Closing Price (5.8.4) message.
+     * A Adjusted Closing Price (5.11.4) message.
      */
     public static class AdjustedClosingPrice implements Message {
         public int  trackingNumber;
@@ -831,7 +998,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_REG_SHO_RESTRICTION);
+            buffer.put(MESSAGE_TYPE_ADJUSTED_CLOSING_PRICE);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -842,7 +1009,42 @@ public class NLS30 {
     }
 
     /**
-     * A End of Day Trade Summary (5.8.5) message.
+     * A Long Form Adjusted Closing Price (5.11.5) message.
+     */
+    public static class LongFormAdjustedClosingPrice implements Message {
+        public int  trackingNumber;
+        public int  timestampHigh;
+        public long timestampLow;
+        public String issueSymbol;
+        public char securityClass;
+        public double adjustedClosingPrice;
+
+        @Override
+        public void get(ByteBuffer buffer) {
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
+            issueSymbol = readString(buffer, 8);
+            securityClass = (char) buffer.get();
+            adjustedClosingPrice = readDouble4(buffer);
+        }
+
+        @Override
+        public void put(ByteBuffer buffer) {
+            buffer.put(MESSAGE_TYPE_LONG_FORM_ADJUSTED_CLOSING_PRICE);
+            putUnsignedShort(buffer, trackingNumber);
+            putUnsignedShort(buffer, timestampHigh);
+            putUnsignedInt(buffer, timestampLow);
+            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) securityClass);
+            put(buffer, adjustedClosingPrice);
+        }
+    }
+
+    /**
+     * A End of Day Trade Summary (5.11.6) message.
      */
     public static class EndOfDayTradeSummary implements Message {
         public int  trackingNumber;
@@ -850,10 +1052,11 @@ public class NLS30 {
         public long timestampLow;
         public String issueSymbol;
         public char marketCategory;
-        public double nasdaqHighPrice;
-        public double nasdaqLowPrice;
-        public double nasdaqClosingPrice;
+        public double consolidatedHighPrice;
+        public double consolidatedLowPrice;
+        public double consolidatedClosingPrice;
         public long consolidatedVolume;
+        public double consolidatedOpenPrice;
 
         @Override
         public void get(ByteBuffer buffer) {
@@ -864,29 +1067,78 @@ public class NLS30 {
             }
             issueSymbol = readString(buffer, 8);
             marketCategory = (char) buffer.get();
-            nasdaqHighPrice = readDouble4(buffer);
-            nasdaqLowPrice = readDouble4(buffer);
-            nasdaqClosingPrice = readDouble4(buffer);
+            consolidatedHighPrice = readDouble4(buffer);
+            consolidatedLowPrice = readDouble4(buffer);
+            consolidatedClosingPrice = readDouble4(buffer);
             consolidatedVolume = buffer.getLong();
+            consolidatedOpenPrice = readDouble4(buffer);
         }
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_REG_SHO_RESTRICTION);
+            buffer.put(MESSAGE_TYPE_END_OF_DAY_TRADE_SUMMARY);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
             buffer.put((byte) marketCategory);
-            put(buffer, nasdaqHighPrice);
-            put(buffer, nasdaqLowPrice);
-            put(buffer, nasdaqClosingPrice);
+            put(buffer, consolidatedHighPrice);
+            put(buffer, consolidatedLowPrice);
+            put(buffer, consolidatedClosingPrice);
             buffer.putLong(consolidatedVolume);
+            put(buffer, consolidatedOpenPrice);
         }
     }
 
     /**
-     * A End of Day Trade Summary - NextShares (5.8.6) message.
+     * A Long Form End of Day Trade Summary (5.11.7) message.
+     */
+    public static class LongFormEndOfDayTradeSummary implements Message {
+        public int  trackingNumber;
+        public int  timestampHigh;
+        public long timestampLow;
+        public String issueSymbol;
+        public char marketCategory;
+        public double consolidatedHighPrice;
+        public double consolidatedLowPrice;
+        public double consolidatedClosingPrice;
+        public long consolidatedVolume;
+        public double consolidatedOpenPrice;
+
+        @Override
+        public void get(ByteBuffer buffer) {
+            if (DECODE_CONTAINS_HEADER) {
+                trackingNumber = getUnsignedShort(buffer);
+                timestampHigh = getUnsignedShort(buffer);
+                timestampLow = getUnsignedInt(buffer);
+            }
+            issueSymbol = readString(buffer, 8);
+            marketCategory = (char) buffer.get();
+            consolidatedHighPrice = readDouble4(buffer);
+            consolidatedLowPrice = readDouble4(buffer);
+            consolidatedClosingPrice = readDouble4(buffer);
+            consolidatedVolume = buffer.getLong();
+            consolidatedOpenPrice = readDouble4(buffer);
+        }
+
+        @Override
+        public void put(ByteBuffer buffer) {
+            buffer.put(MESSAGE_TYPE_LONG_FORM_END_OF_DAY_TRADE_SUMMARY);
+            putUnsignedShort(buffer, trackingNumber);
+            putUnsignedShort(buffer, timestampHigh);
+            putUnsignedInt(buffer, timestampLow);
+            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put((byte) marketCategory);
+            put(buffer, consolidatedHighPrice);
+            put(buffer, consolidatedLowPrice);
+            put(buffer, consolidatedClosingPrice);
+            buffer.putLong(consolidatedVolume);
+            put(buffer, consolidatedOpenPrice);
+        }
+    }
+
+    /**
+     * A End of Day Trade Summary - NextShares (5.11.8) message.
      */
     public static class EndOfDayTradeSummaryNextShares implements Message {
         public int  trackingNumber;
@@ -922,7 +1174,7 @@ public class NLS30 {
 
         @Override
         public void put(ByteBuffer buffer) {
-            buffer.put(MESSAGE_TYPE_REG_SHO_RESTRICTION);
+            buffer.put(MESSAGE_TYPE_END_OF_DAY_TRADE_SUMMARY_NEXT_SHARES);
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
@@ -939,7 +1191,7 @@ public class NLS30 {
     }
 
     /**
-     * An IPO Information (5.8.7) message.
+     * An IPO Information (5.11.9) message.
      */
     public static class IPOInformation implements Message {
         public int  trackingNumber;
@@ -1041,7 +1293,7 @@ public class NLS30 {
     }
 
     /**
-     * An IPO Quoting Period Update (5.8.9) message.
+     * An IPO Quoting Period Update (5.11.11) message.
      */
     public static class IPOQuotingPeriodUpdate implements Message {
         public int  trackingNumber;
