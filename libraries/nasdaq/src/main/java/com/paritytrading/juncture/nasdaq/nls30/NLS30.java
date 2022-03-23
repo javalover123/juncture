@@ -257,6 +257,16 @@ public class NLS30 {
         }
 
         /**
+         * Read 8 byte double
+         *
+         * @param buffer a buffer
+         * @return double
+         */
+        default double readDouble8(ByteBuffer buffer) {
+            return buffer.getLong() / 10000.0;
+        }
+
+        /**
          * Read 8 byte price
          *
          * @param buffer a buffer
@@ -280,14 +290,25 @@ public class NLS30 {
         }
 
         /**
-         * Write double
+         * Write 4 byte double
          *
          * @param buffer a buffer
-         * @param value  double value
+         * @param value  4 byte double value
          * @return Byte array
          */
         default void put(ByteBuffer buffer, double value) {
             buffer.putInt((int) (value * 10000));
+        }
+
+        /**
+         * Write 8 byte double
+         *
+         * @param buffer a buffer
+         * @param value  8 byte double value
+         * @return Byte array
+         */
+        default void putDouble8(ByteBuffer buffer, double value) {
+            buffer.putLong((long) (value * 10000));
         }
 
         /**
@@ -298,7 +319,7 @@ public class NLS30 {
          * @return Byte array
          */
         default void putPrice8(ByteBuffer buffer, double value) {
-            buffer.putLong((int) (value * 10000 * 1000));
+            buffer.putLong((long) (value * 10000 * 1000));
         }
 
     }
@@ -409,7 +430,7 @@ public class NLS30 {
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
             tradeControlNumber = readString(buffer, 10);
-            tradePrice = readDouble4(buffer);
+            tradePrice = readDouble8(buffer);
             tradeSize = getUnsignedInt(buffer);
             saleConditionModifier = readString(buffer, 4);
             consolidatedVolume = buffer.getLong();
@@ -425,7 +446,7 @@ public class NLS30 {
             buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
             buffer.put((byte) securityClass);
             buffer.put(tradeControlNumber.getBytes(StandardCharsets.UTF_8));
-            put(buffer, tradePrice);
+            putDouble8(buffer, tradePrice);
             putUnsignedInt(buffer, tradeSize);
             buffer.put(saleConditionModifier.getBytes(StandardCharsets.UTF_8));
             buffer.putLong(consolidatedVolume);
@@ -562,7 +583,7 @@ public class NLS30 {
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
             originalTradeControlNumber = readString(buffer, 10);
-            originalTradePrice = readDouble4(buffer);
+            originalTradePrice = readDouble8(buffer);
             originalTradeSize = getUnsignedInt(buffer);
             originalSaleConditionModifier = readString(buffer, 4);
             consolidatedVolume = buffer.getLong();
@@ -578,7 +599,7 @@ public class NLS30 {
             buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
             buffer.put((byte) securityClass);
             buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
-            put(buffer, originalTradePrice);
+            putDouble8(buffer, originalTradePrice);
             putUnsignedInt(buffer, originalTradeSize);
             buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
             buffer.putLong(consolidatedVolume);
@@ -731,11 +752,11 @@ public class NLS30 {
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
             originalTradeControlNumber = readString(buffer, 10);
-            originalTradePrice = readDouble4(buffer);
+            originalTradePrice = readDouble8(buffer);
             originalTradeSize = getUnsignedInt(buffer);
             originalSaleConditionModifier = readString(buffer, 4);
             correctionTradeControlNumber = readString(buffer, 10);
-            correctionTradePrice = readDouble4(buffer);
+            correctionTradePrice = readDouble8(buffer);
             correctionTradeSize = getUnsignedInt(buffer);
             correctionSaleConditionModifier = readString(buffer, 4);
             consolidatedVolume = buffer.getLong();
@@ -751,11 +772,11 @@ public class NLS30 {
             buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
             buffer.put((byte) securityClass);
             buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
-            put(buffer, originalTradePrice);
+            putDouble8(buffer, originalTradePrice);
             putUnsignedInt(buffer, originalTradeSize);
             buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
             buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.UTF_8));
-            put(buffer, correctionTradePrice);
+            putDouble8(buffer, correctionTradePrice);
             putUnsignedInt(buffer, correctionTradeSize);
             buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
             buffer.putLong(consolidatedVolume);
@@ -1028,7 +1049,7 @@ public class NLS30 {
             }
             issueSymbol = readString(buffer, 8);
             securityClass = (char) buffer.get();
-            adjustedClosingPrice = readDouble4(buffer);
+            adjustedClosingPrice = readDouble8(buffer);
         }
 
         @Override
@@ -1039,7 +1060,7 @@ public class NLS30 {
             putUnsignedInt(buffer, timestampLow);
             buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
             buffer.put((byte) securityClass);
-            put(buffer, adjustedClosingPrice);
+            putDouble8(buffer, adjustedClosingPrice);
         }
     }
 
@@ -1114,11 +1135,11 @@ public class NLS30 {
             }
             issueSymbol = readString(buffer, 8);
             marketCategory = (char) buffer.get();
-            consolidatedHighPrice = readDouble4(buffer);
-            consolidatedLowPrice = readDouble4(buffer);
-            consolidatedClosingPrice = readDouble4(buffer);
+            consolidatedHighPrice = readDouble8(buffer);
+            consolidatedLowPrice = readDouble8(buffer);
+            consolidatedClosingPrice = readDouble8(buffer);
             consolidatedVolume = buffer.getLong();
-            consolidatedOpenPrice = readDouble4(buffer);
+            consolidatedOpenPrice = readDouble8(buffer);
         }
 
         @Override
@@ -1129,11 +1150,11 @@ public class NLS30 {
             putUnsignedInt(buffer, timestampLow);
             buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
             buffer.put((byte) marketCategory);
-            put(buffer, consolidatedHighPrice);
-            put(buffer, consolidatedLowPrice);
-            put(buffer, consolidatedClosingPrice);
+            putDouble8(buffer, consolidatedHighPrice);
+            putDouble8(buffer, consolidatedLowPrice);
+            putDouble8(buffer, consolidatedClosingPrice);
             buffer.putLong(consolidatedVolume);
-            put(buffer, consolidatedOpenPrice);
+            putDouble8(buffer, consolidatedOpenPrice);
         }
     }
 
