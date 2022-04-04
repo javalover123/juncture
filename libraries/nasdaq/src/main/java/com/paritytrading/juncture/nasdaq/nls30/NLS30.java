@@ -286,7 +286,7 @@ public class NLS30 {
         default String readString(ByteBuffer buffer, int length) {
             byte[] bytes = new byte[length];
             buffer.get(bytes);
-            return new String(bytes, StandardCharsets.UTF_8).trim();
+            return new String(bytes, StandardCharsets.US_ASCII).trim();
         }
 
         /**
@@ -393,12 +393,12 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) originatingMarketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(tradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(tradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, tradePrice);
             putUnsignedInt(buffer, tradeSize);
-            buffer.put(saleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(saleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -443,12 +443,12 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) originatingMarketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(tradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(tradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             putDouble8(buffer, tradePrice);
             putUnsignedInt(buffer, tradeSize);
-            buffer.put(saleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(saleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -495,13 +495,13 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) originatingMarketCenterIdentifier);
-            buffer.put(nextSharesSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(nextSharesSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(tradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(tradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, proxyPrice);
             putUnsignedInt(buffer, tradeSize);
             put(buffer, navOffsetAmount);
-            buffer.put(saleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(saleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -546,12 +546,12 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) originatingMarketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, originalTradePrice);
             putUnsignedInt(buffer, originalTradeSize);
-            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -596,12 +596,12 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) originatingMarketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             putDouble8(buffer, originalTradePrice);
             putUnsignedInt(buffer, originalTradeSize);
-            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -648,13 +648,13 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) marketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, originalProxyPrice);
             put(buffer, originalNavOffsetAmount);
             putUnsignedInt(buffer, originalTradeSize);
-            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -707,16 +707,16 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) originatingMarketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, originalTradePrice);
             putUnsignedInt(buffer, originalTradeSize);
-            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
-            buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
+            buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, correctionTradePrice);
             putUnsignedInt(buffer, correctionTradeSize);
-            buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -769,16 +769,16 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) originatingMarketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             putDouble8(buffer, originalTradePrice);
             putUnsignedInt(buffer, originalTradeSize);
-            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
-            buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
+            buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             putDouble8(buffer, correctionTradePrice);
             putUnsignedInt(buffer, correctionTradeSize);
-            buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -835,18 +835,18 @@ public class NLS30 {
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
             buffer.put((byte) marketCenterIdentifier);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
-            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, originalProxyPrice);
             put(buffer, originalNavOffsetAmount);
             putUnsignedInt(buffer, originalTradeSize);
-            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
-            buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.UTF_8));
+            buffer.put(originalSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
+            buffer.put(correctionTradeControlNumber.getBytes(StandardCharsets.US_ASCII));
             put(buffer, correctionProxyPrice);
             put(buffer, correctionNavOffsetAmount);
             putUnsignedInt(buffer, correctionTradeSize);
-            buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.UTF_8));
+            buffer.put(correctionSaleConditionModifier.getBytes(StandardCharsets.US_ASCII));
             buffer.putLong(consolidatedVolume);
         }
     }
@@ -884,10 +884,10 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
             buffer.put((byte) currentTradingState);
-            buffer.put(reason.getBytes(StandardCharsets.UTF_8));
+            buffer.put(reason.getBytes(StandardCharsets.US_ASCII));
         }
     }
 
@@ -944,13 +944,13 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) marketCategory);
             buffer.put((byte) financialStatusIndicator);
             putUnsignedInt(buffer, roundLotSize);
             buffer.put((byte) roundLotsOnly);
             buffer.put((byte) issueClassification);
-            buffer.put(issueSubType.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSubType.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) authenticity);
             buffer.put((byte) shortSaleThresholdIndicator);
             buffer.put((byte) ipoFlag);
@@ -958,7 +958,7 @@ public class NLS30 {
             buffer.put((byte) etpFlag);
             putUnsignedInt(buffer, etpLeverageFactor);
             buffer.put((byte) inverseIndicator);
-            buffer.put(bloombergID.getBytes(StandardCharsets.UTF_8));
+            buffer.put(bloombergID.getBytes(StandardCharsets.US_ASCII));
         }
     }
 
@@ -989,7 +989,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) regSHOAction);
         }
     }
@@ -1023,7 +1023,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
             put(buffer, adjustedClosingPrice);
         }
@@ -1058,7 +1058,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
             putDouble8(buffer, adjustedClosingPrice);
         }
@@ -1101,7 +1101,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) marketCategory);
             put(buffer, consolidatedHighPrice);
             put(buffer, consolidatedLowPrice);
@@ -1148,7 +1148,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) marketCategory);
             putDouble8(buffer, consolidatedHighPrice);
             putDouble8(buffer, consolidatedLowPrice);
@@ -1199,7 +1199,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) marketCategory);
             put(buffer, nasdaqHighPrice);
             put(buffer, navOffsetAmountHigh);
@@ -1242,7 +1242,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(issueSymbol.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSymbol.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
             buffer.put((byte) referenceForNetChange);
             put(buffer, referencePrice);
@@ -1344,7 +1344,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             putUnsignedInt(buffer, ipoQuotationReleaseTime);
             buffer.put((byte) ipoQuotationReleaseQualifier);
             put(buffer, ipoPrice);
@@ -1380,7 +1380,7 @@ public class NLS30 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) marketCode);
             buffer.put((byte) operationalHaltAction);
         }

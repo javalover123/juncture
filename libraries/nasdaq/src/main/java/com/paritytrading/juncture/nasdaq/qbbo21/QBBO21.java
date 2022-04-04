@@ -195,7 +195,7 @@ public class QBBO21 {
         default String readString(ByteBuffer buffer, int length) {
             byte[] bytes = new byte[length];
             buffer.get(bytes);
-            return new String(bytes, StandardCharsets.UTF_8).trim();
+            return new String(bytes, StandardCharsets.US_ASCII).trim();
         }
 
         /**
@@ -302,13 +302,13 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) marketCategory);
             buffer.put((byte) financialStatusIndicator);
             putUnsignedInt(buffer, roundLotSize);
             buffer.put((byte) roundLotsOnly);
             buffer.put((byte) issueClassification);
-            buffer.put(issueSubType.getBytes(StandardCharsets.UTF_8));
+            buffer.put(issueSubType.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) authenticity);
             buffer.put((byte) shortSaleThresholdIndicator);
             buffer.put((byte) ipoFlag);
@@ -350,10 +350,10 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
             buffer.put((byte) tradingState);
-            buffer.put(reason.getBytes(StandardCharsets.UTF_8));
+            buffer.put(reason.getBytes(StandardCharsets.US_ASCII));
         }
     }
 
@@ -384,7 +384,7 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) regSHOAction);
         }
     }
@@ -484,7 +484,7 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             putUnsignedInt(buffer, ipoQuotationReleaseTime);
             buffer.put((byte) ipoQuotationReleaseQualifier);
             put(buffer, ipoPrice);
@@ -520,7 +520,7 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) marketCode);
             buffer.put((byte) operationalHaltAction);
         }
@@ -565,7 +565,7 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
             put(buffer, bestBidProxyPrice);
             putUnsignedInt(buffer, bestBidSize);
@@ -611,7 +611,7 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) securityClass);
             put(buffer, bestBidPrice);
             putUnsignedInt(buffer, bestBidSize);
@@ -647,7 +647,7 @@ public class QBBO21 {
             putUnsignedShort(buffer, trackingNumber);
             putUnsignedShort(buffer, timestampHigh);
             putUnsignedInt(buffer, timestampLow);
-            buffer.put(stock.getBytes(StandardCharsets.UTF_8));
+            buffer.put(stock.getBytes(StandardCharsets.US_ASCII));
             buffer.put((byte) interestFlag);
         }
     }
